@@ -65,11 +65,11 @@ This package implements four attribution methods from the paper:
 1. **WinTSR** — the proposed method
 2. **TSR** [[NeurIPS 2020]](https://proceedings.neurips.cc/paper_files/paper/2020/file/47a3893cc405396a5c30d91320572d6d-Paper.pdf)
 3. **WinIT** [[ICLR 2023]](https://openreview.net/forum?id=C0q9oBc3n4)
-4. **GateMask**
+4. **GateMask** — the gating mechanism from *ContraLSP* [[ICLR 2024]](https://arxiv.org/pdf/2401.08552)
 
-The paper also benchmarks against Feature Ablation, Dyna Mask, Extremal Mask, Feature
-Permutation, Gradient SHAP, Integrated Gradients, and ContraLSP — all available directly
-from [Captum](https://captum.ai/docs/introduction) and
+The paper also benchmarks against Feature Ablation, Feature Permutation, Occlusion,
+Augmented Occlusion, Dyna Mask, Extremal Mask, Lime, FIT, Gradient SHAP, and Integrated
+Gradients — all available directly from [Captum](https://captum.ai/docs/introduction) and
 [tint](https://josephenguehard.github.io/time_interpret/build/html/index.html), no
 wrapper needed.
 
