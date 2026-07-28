@@ -19,8 +19,9 @@ dimension separately from the feature dimension when calculating importance scor
 pip install wintsr
 ```
 
-Works with any PyTorch model mapping `(batch, seq_len, n_features)` to predictions. No
-training framework to adopt, no dataset format to conform to:
+Requires Python 3.9+ and PyTorch 1.13+. Works with any PyTorch model mapping
+`(batch, seq_len, n_features)` to predictions — no training framework to adopt, no
+dataset format to conform to:
 
 ```python
 import torch
@@ -57,50 +58,7 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 )
 ```
 
-## Repository layout
-
-| Path | What it is |
-| --- | --- |
-| [src/wintsr/](/src/wintsr/) | The installable library. `WinTSR` plus the paper's baseline methods (`TSR`, `WinIT`, `GateMask`). |
-| [notebooks/](/notebooks/) | Runnable quickstart and TSlib walkthrough. |
-| [tests/](/tests/) | Test suite, including a numerical-equivalence check against the pre-refactor implementation. |
-| [docs/](/docs/) | Integration cookbook and the PyPI-page library reference. |
-
-This repo is the library only. The training/interpretation harness that produced the
-paper's results — model zoo, experiment scripts, saved results — lives in
-[WinTSR-research](https://github.com/khairulislam/WinTSR-research) and depends on this
-package the same way any user would (`pip install wintsr`).
-
-## Citation
-
-Find our paper on arxiv at https://arxiv.org/pdf/2412.04532. Please cite the following if you use our work.
-
-```
-@article{islam2024wintsr,
-  title={WinTSR: A Windowed Temporal Saliency Rescaling Method for Interpreting Time Series Deep Learning Models},
-  author={Islam, Md Khairul and Fox, Judy},
-  journal={arXiv preprint arXiv:2412.04532},
-  year={2024}
-}
-```
-
-## Core Libraries
-
-The following libraries are used as a core in this framework.
-
-### [Captum](https://captum.ai/docs/introduction)
-
-(“comprehension” in Latin) is an open source library for model interpretability built on PyTorch.
-
-### [Time Interpret (tint)](https://josephenguehard.github.io/time_interpret/build/html/index.html)
-
-Expands the Captum library with a specific focus on time-series. It includes various interpretability methods specifically designed to handle time series data.
-
-### [Time-Series-Library (TSlib)](https://github.com/thuml/Time-Series-Library)
-
-TSlib is an open-source library for deep learning researchers, especially deep time series analysis.
-
-## Interpretation Methods
+## Interpretation methods
 
 This package implements four attribution methods from the paper:
 
@@ -115,6 +73,20 @@ from [Captum](https://captum.ai/docs/introduction) and
 [tint](https://josephenguehard.github.io/time_interpret/build/html/index.html), no
 wrapper needed.
 
+## Repository layout
+
+| Path | What it is |
+| --- | --- |
+| [src/wintsr/](/src/wintsr/) | The installable library. `WinTSR` plus the paper's baseline methods (`TSR`, `WinIT`, `GateMask`). |
+| [notebooks/](/notebooks/) | Runnable quickstart and TSlib walkthrough. |
+| [tests/](/tests/) | Test suite, including a numerical-equivalence check against the pre-refactor implementation. |
+| [docs/](/docs/) | Integration cookbook and the PyPI-page library reference. |
+
+This repo is the library only. The training/interpretation harness that produced the
+paper's results — model zoo, experiment scripts, saved results — lives in
+[WinTSR-research](https://github.com/khairulislam/WinTSR-research) and depends on this
+package the same way any user would (`pip install wintsr`).
+
 ## Reproducing the paper
 
 Training the models, running the full benchmark, and the paper's saved results live in
@@ -123,3 +95,29 @@ package as a regular dependency. That repo also has the model zoo — DLinear,
 iTransformer, TimesNet, CALF, TimeLLM and 25 others from
 [TSlib](https://github.com/thuml/Time-Series-Library) — dataset download instructions,
 and Docker/Singularity definitions.
+
+## Citation
+
+Find our paper on [arXiv](https://arxiv.org/pdf/2412.04532). Please cite the following if you use our work
+(also available as [CITATION.cff](CITATION.cff), used by GitHub's "Cite this repository" button).
+
+```bibtex
+@article{islam2024wintsr,
+  title={WinTSR: A Windowed Temporal Saliency Rescaling Method for Interpreting Time Series Deep Learning Models},
+  author={Islam, Md Khairul and Fox, Judy},
+  journal={arXiv preprint arXiv:2412.04532},
+  year={2024}
+}
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+## Core libraries
+
+WinTSR builds on these open-source projects:
+
+- **[Captum](https://captum.ai/docs/introduction)** — model interpretability library for PyTorch.
+- **[Time Interpret (tint)](https://josephenguehard.github.io/time_interpret/build/html/index.html)** — extends Captum with methods designed for time series.
+- **[Time-Series-Library (TSlib)](https://github.com/thuml/Time-Series-Library)** — deep time series analysis models used in the benchmark.

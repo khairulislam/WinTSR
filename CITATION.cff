@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "WinTSR: A Windowed Temporal Saliency Rescaling Method for Interpreting Time Series Deep Learning Models"
+authors:
+  - family-names: Islam
+    given-names: Md Khairul
+    email: khairulislam@virginia.edu
+  - family-names: Fox
+    given-names: Judy
+repository-code: "https://github.com/khairulislam/WinTSR"
+license: MIT
+preferred-citation:
+  type: article
+  title: "WinTSR: A Windowed Temporal Saliency Rescaling Method for Interpreting Time Series Deep Learning Models"
+  authors:
+    - family-names: Islam
+      given-names: Md Khairul
+    - family-names: Fox
+      given-names: Judy
+  journal: arXiv preprint arXiv:2412.04532
+  year: 2024
+  url: "https://arxiv.org/abs/2412.04532"
