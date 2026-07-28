@@ -1,3 +1,0 @@
-data,prompt
-electricity,"The UCI Electricity dataset contains the consumption of 321 customers from 2012 to 2014. We aggregated it on an hourly level. The task is to forecast consumption for the next 24 hours."
-mimic_iii,"a multivariate clinical time series dataset with a range of vital and lab measurements taken over time. We use it for mortality prediction."

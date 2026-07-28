@@ -1,0 +1,257 @@
+import torch, gc, copy
+
+from typing import Any, Tuple, Union
+from captum.attr import IntegratedGradients
+
+from ..functional import normalize_scale
+
+
+#: Models that take every input tensor as a positional argument of their own
+#: ``forward()``. For anything not listed here, only the first input is
+#: attributed and the rest are passed through as additional forward arguments.
+#: The research harness re-exports this list, so the two cannot drift apart.
+DUAL_INPUT_USERS = [
+    'iTransformer', 'Autoformer', 'ETSformer', 'FEDformer',
+    'Informer', 'Nonstationary_Transformer', 'Reformer',
+    'RNN', 'TimesNet', 'Transformer', 'TimeXer', 'TimeMixer'
+]
+
+
+class TSR:
+    """Temporal Saliency Rescaling (Ismail et al., NeurIPS 2020).
+
+    Args:
+        model: the model to interpret.
+        args: config carrying ``model``, ``task_name`` and ``pred_len`` /
+            ``num_class``.
+        dual_input_users: model names that consume every input inside their own
+            ``forward()``. Defaults to :data:`DUAL_INPUT_USERS`; override it if
+            you are explaining a model this package does not know about.
+    """
+
+    def __init__(self, model, args, dual_input_users=None):
+        self.args = args
+        self.dual_input_users = (
+            DUAL_INPUT_USERS if dual_input_users is None else dual_input_users
+        )
+
+        if 'RNN' in args.model:
+            clone = copy.deepcopy(model)
+            clone.train() # deep lift moedl needs to be in training mode
+            self.explainer = IntegratedGradients(clone)
+        else:
+            self.explainer = IntegratedGradients(model)
+        
+    def get_time_relevance_score(
+        self, inputs, additional_forward_args, baselines
+    ):
+        input_is_tuple = type(inputs) == tuple
+        if not input_is_tuple:
+            inputs = tuple([inputs])
+            baselines = tuple([baselines])
+            
+        attr_original = self.compute_grads(inputs, additional_forward_args, baselines)
+            
+        with torch.no_grad():
+            time_relevance_score = []
+            for input_index in range(len(inputs)):
+                cloned = inputs[input_index].clone()
+                batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
+                score = torch.zeros(
+                    (batch_size * n_output, seq_len), device=inputs[input_index].device
+                )
+                
+                if self.args.model not in self.dual_input_users and input_index > 0:
+                    time_relevance_score.append(score)
+                    continue
+                
+                assignment = inputs[input_index][0, 0, 0]
+                
+                for t in range(inputs[input_index].shape[1]):
+                    prev_value = cloned[:, t]
+                    cloned[:, t] = assignment
+                    
+                    inputs_hat = []
+                    for i in range(len(inputs)):
+                        if i == input_index:
+                            inputs_hat.append(cloned)
+                        else:
+                            inputs_hat.append(inputs[i])
+                
+                    attr_perturbed = self.compute_grads(tuple(inputs_hat), additional_forward_args, baselines)
+                    
+                    for i in range(0, len(attr_perturbed)):
+                        attr_diff = abs(attr_perturbed[i] - attr_original[i])
+                        score[:, t] += torch.sum(attr_diff, dim=(2, 3)).flatten()
+                    
+                    cloned[:, t] = prev_value
+                    
+                    del attr_perturbed, attr_diff
+                    gc.collect()
+                
+                time_relevance_score.append(score)
+                del cloned
+        
+        # time_relevance_score shape will be ((N x O) x seq_len) after summation
+        time_relevance_score = tuple(
+            # tsr.sum((tuple(i for i in range(2, len(tsr.shape)))))
+            tsr.reshape((-1, tsr.shape[-1]))
+            for tsr in time_relevance_score
+        )
+        time_relevance_score = tuple(
+            normalize_scale(
+                tsr, dim=1, norm_type="minmax"
+            ) for tsr in time_relevance_score
+        )
+        
+        if input_is_tuple:
+            return time_relevance_score
+        else: return time_relevance_score[0]
+        
+    def compute_grads(self, inputs,additional_forward_args, baselines):
+        attr_list = []
+        if self.args.task_name == 'classification':
+            targets = self.args.num_class
+        else: targets = self.args.pred_len
+        
+        for target in range(targets):
+            # temporary speedup
+            # if target > 0:
+            #     attr_list.append(attr)
+            #     continue
+            
+            # these models use the multiple inputs in the forward function
+            if type(inputs) == tuple and self.args.model not in self.dual_input_users:
+                new_additional_forward_args = tuple([
+                    input for input in inputs[1:]
+                ])
+                if additional_forward_args is not None:
+                    new_additional_forward_args += additional_forward_args
+                
+                # output is a tuple of length 1, since only one input is used
+                attr = self.explainer.attribute(
+                    inputs=inputs[0], baselines=baselines[0], target=target,
+                    additional_forward_args=new_additional_forward_args
+                )
+                
+                attr = tuple([attr] + [
+                    torch.zeros_like(inputs[i], device=inputs[i].device) for i in range(1, len(inputs))]
+                )
+                
+            else: attr = self.explainer.attribute(
+                inputs=inputs, baselines=baselines, target=target,
+                additional_forward_args=additional_forward_args
+            )
+            attr_list.append(attr)
+            
+        if type(inputs) == tuple:
+            attr = []
+            for input_index in range(len(inputs)):
+                attr_per_input = torch.stack([score[input_index] for score in attr_list])
+                # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
+                attr.append(attr_per_input)
+                
+            attr = tuple(attr)
+        else:
+            attr = torch.stack(attr_list)
+            # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+            attr = attr.permute(1, 0, 2, 3)
+        return attr
+            
+    def attribute(
+        self, inputs:Union[torch.Tensor , Tuple[torch.Tensor]], 
+        additional_forward_args: Tuple[torch.Tensor], 
+        baselines, threshold=0.55
+    ):
+        input_is_tuple = type(inputs) == tuple
+        if not input_is_tuple:
+            inputs = tuple([inputs])
+            baselines = tuple([baselines])
+            
+        time_relevance_score = self.get_time_relevance_score(
+                inputs, additional_forward_args, baselines
+            )
+        
+        # batch_size x n_output x seq_len x n_features
+        attr_original = self.compute_grads(inputs, additional_forward_args, baselines)
+            
+        is_above_threshold = tuple(
+            score > torch.quantile(score, threshold, dim=1, keepdim=True) for score in time_relevance_score
+        )
+        
+        with torch.no_grad():
+            feature_relevance_score = []
+            for input_index in range(len(inputs)):
+                batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
+                score = torch.zeros(
+                    (batch_size * n_output, seq_len, n_features), 
+                    device=inputs[input_index].device
+                )
+                
+                if self.args.model not in self.dual_input_users and input_index>0:
+                    feature_relevance_score.append(score)
+                    continue
+                
+                cloned = inputs[input_index].clone()
+                assignment = inputs[input_index][0, 0, 0]
+                for t in range(seq_len):
+                    #TODO: revise
+                    above_threshold = is_above_threshold[input_index][:, t]
+
+                    for f in range(n_features):
+                        # if not above_threshold.any():
+                        #     score[:, t] = 0.1
+                        #     continue
+                        
+                        cloned = inputs[input_index].clone()
+                        cloned[:, t, f] = assignment
+                        
+                        inputs_hat = []
+                        for i in range(len(inputs)):
+                            if i == input_index:
+                                inputs_hat.append(cloned)
+                            else:
+                                inputs_hat.append(inputs[i])
+                        
+                        attr_perturbed = self.compute_grads(
+                            tuple(inputs_hat), additional_forward_args, baselines
+                        )
+
+                        # cloned[:, t, f] = prev_value
+                        # right now only the first element in the tuple is used
+                        for original, perturbed in zip(attr_original, attr_perturbed):
+                            diff = abs(perturbed - original)
+                            score[:, t, f] += torch.sum(diff, dim=(2, 3)).flatten()
+                            
+                        # score[~above_threshold, t] = 0.1
+                        del attr_perturbed
+                        gc.collect()
+                        
+                    # normalize across the feature dimension
+                    # score = normalize_scale(score, dim=0, norm_type="minmax")
+                    
+                feature_relevance_score.append(score)
+                del cloned
+            
+        time_relevance_score = tuple(
+            tsr.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
+            for input, tsr in zip(feature_relevance_score, time_relevance_score)
+        )
+        is_above_threshold = tuple(
+            is_above.reshape(attr.shape[:2] + (1,) * len(attr.shape[2:]))
+            for attr, is_above in zip(feature_relevance_score, is_above_threshold)
+        )
+        
+        attributions = tuple(
+            (tsr * frs)*is_above for tsr, frs, is_above in zip(
+                time_relevance_score,
+                feature_relevance_score, is_above_threshold
+            )
+        )
+            
+        if input_is_tuple: return attributions
+        else: return attributions[0]    
+    
+    def get_name():
+        return 'TSR'
