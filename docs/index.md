@@ -66,6 +66,71 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 )
 ```
 
+??? note "All 14 supported interpretation methods (click to expand)"
+
+    Four — WinTSR, TSR, WinIT, GateMask — are implemented natively; the other ten call
+    [Captum](https://captum.ai/docs/introduction) and
+    [tint](https://josephenguehard.github.io/time_interpret/build/html/index.html)
+    directly. Full comparison matrix (model requirement, baseline, API doc) on the
+    [Interpretation methods](methods.md) page.
+
+    | Method | Type | Paper |
+    | --- | --- | --- |
+    | [WinTSR](reference/wintsr.md) | Perturbation | [Islam & Fox, arXiv:2412.04532](https://arxiv.org/abs/2412.04532) |
+    | [TSR](reference/tsr.md) | Gradient | [Ismail et al., NeurIPS 2020](https://proceedings.neurips.cc/paper_files/paper/2020/file/47a3893cc405396a5c30d91320572d6d-Paper.pdf) |
+    | [WinIT](reference/winit.md) | Perturbation | [Leung et al., ICLR 2023](https://arxiv.org/abs/2107.14317) |
+    | [GateMask](reference/gate_mask.md) | Learned mask | [Liu et al., ICLR 2024](https://arxiv.org/abs/2401.08552) |
+    | Occlusion | Perturbation | [Zeiler & Fergus, ECCV 2014](https://arxiv.org/abs/1311.2901) |
+    | Feature Ablation | Perturbation | [Kokhlikyan et al., arXiv:2009.07896](https://arxiv.org/abs/2009.07896) |
+    | Feature Permutation | Perturbation | [Kokhlikyan et al., arXiv:2009.07896](https://arxiv.org/abs/2009.07896) |
+    | Augmented Occlusion | Perturbation | [Enguehard, ICML 2023](https://proceedings.mlr.press/v202/enguehard23a.html) |
+    | Integrated Gradients | Gradient | [Sundararajan et al., ICML 2017](https://arxiv.org/abs/1703.01365) |
+    | Gradient SHAP | Gradient | [Lundberg & Lee, NeurIPS 2017](https://arxiv.org/abs/1705.07874) |
+    | FIT | Perturbation | [Tonekaboni et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/08fa43588c2571ade19bc0fa5936e028-Abstract.html) |
+    | Dyna Mask | Learned mask | [Crabbé & van der Schaar, ICML 2021](https://proceedings.mlr.press/v139/crabbe21a.html) |
+    | Extremal Mask | Learned mask | [Enguehard, ICML 2023](https://proceedings.mlr.press/v202/enguehard23a.html) |
+    | Lime | Surrogate | [Ribeiro et al., KDD 2016](https://arxiv.org/abs/1602.04938) |
+
+??? note "All 29 supported model architectures (click to expand)"
+
+    WinTSR attributes any callable that maps `(batch, seq_len, n_features)` — or a
+    tuple of tensors — to predictions, so nothing here is hard-coded. This is what the
+    package and its [research harness](https://github.com/khairulislam/WinTSR-research)
+    have actually been run against. Calling convention (single vs. dual-input) on the
+    [Supported models](models.md) page.
+
+    | Model | Family | Paper |
+    | --- | --- | --- |
+    | DLinear | Linear | [Zeng et al., AAAI 2023](https://arxiv.org/abs/2205.13504) |
+    | LightTS | Linear/MLP | [Zhang et al., arXiv:2207.01186](https://arxiv.org/abs/2207.01186) |
+    | TiDE | Linear/MLP | [Das et al., TMLR 2023](https://arxiv.org/abs/2304.08424) |
+    | FiLM | Linear/MLP | [Zhou et al., NeurIPS 2022](https://arxiv.org/abs/2205.08897) |
+    | TSMixer | MLP-Mixer | [Chen et al., TMLR 2023](https://arxiv.org/abs/2303.06053) |
+    | FreTS | Frequency-domain MLP | [Yi et al., NeurIPS 2023](https://arxiv.org/abs/2311.06184) |
+    | MICN | Convolutional | [Wang et al., ICLR 2023](https://openreview.net/pdf?id=zt53IDUR1U) |
+    | Crossformer | Transformer | [Zhang & Yan, ICLR 2023](https://openreview.net/pdf?id=vSVLM2j9eie) |
+    | PatchTST | Transformer | [Nie et al., ICLR 2023](https://arxiv.org/abs/2211.14730) |
+    | Pyraformer | Transformer | [Liu et al., ICLR 2022](https://openreview.net/pdf?id=0EXmFzUn5I) |
+    | SegRNN | Recurrent | [Lin et al., arXiv:2308.11200](https://arxiv.org/abs/2308.11200) |
+    | Koopa | Koopman operator | [Liu et al., NeurIPS 2023](https://arxiv.org/abs/2305.18803) |
+    | LSTM | Recurrent | [Hochreiter & Schmidhuber, Neural Computation 1997](https://www.bioinf.jku.at/publications/older/2604.pdf) |
+    | TCN | Convolutional | [Bai et al., arXiv:1803.01271](https://arxiv.org/abs/1803.01271) |
+    | CALF | LLM-backed foundation model | [Liu et al., arXiv:2403.07300](https://arxiv.org/abs/2403.07300) |
+    | OFA (GPT4TS) | LLM-backed foundation model | [Zhou et al., NeurIPS 2023](https://arxiv.org/abs/2302.11939) |
+    | TimeLLM | LLM-backed foundation model | [Jin et al., ICLR 2024](https://arxiv.org/abs/2310.01728) |
+    | Transformer | Transformer | [Vaswani et al., NeurIPS 2017](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) |
+    | Informer | Transformer | [Zhou et al., AAAI 2021](https://ojs.aaai.org/index.php/AAAI/article/view/17325) |
+    | Autoformer | Transformer | [Wu et al., NeurIPS 2021](https://openreview.net/pdf?id=I55UqU-M11y) |
+    | FEDformer | Transformer | [Zhou et al., ICML 2022](https://proceedings.mlr.press/v162/zhou22g.html) |
+    | ETSformer | Transformer | [Woo et al., arXiv:2202.01381](https://arxiv.org/abs/2202.01381) |
+    | Nonstationary Transformer | Transformer | [Liu et al., NeurIPS 2022](https://openreview.net/pdf?id=ucNDIDRNjjv) |
+    | Reformer | Transformer | [Kitaev et al., ICLR 2020](https://openreview.net/forum?id=rkgNKkHtvB) |
+    | iTransformer | Transformer | [Liu et al., ICLR 2024](https://arxiv.org/abs/2310.06625) |
+    | TimeXer | Transformer | [Wang et al., NeurIPS 2024](https://arxiv.org/abs/2402.19072) |
+    | TimeMixer | MLP-Mixer | [Wang et al., ICLR 2024](https://arxiv.org/abs/2405.14616) |
+    | TimesNet | Convolutional | [Wu et al., ICLR 2023](https://openreview.net/pdf?id=ju_Uqw384Oq) |
+    | RNN | Recurrent | [Hochreiter & Schmidhuber, Neural Computation 1997](https://www.bioinf.jku.at/publications/older/2604.pdf) |
+
 ### Where to next
 
 - **[Tutorials](integration.md)** — copy-paste recipes for dict/tuple model outputs,
