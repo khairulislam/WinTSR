@@ -1,6 +1,6 @@
 import torch, gc, copy
 
-from typing import Any, Tuple, Union
+from typing import Any, List, Optional, Tuple, Union
 from captum.attr import IntegratedGradients
 
 from ..functional import normalize_scale
@@ -29,7 +29,12 @@ class TSR:
             you are explaining a model this package does not know about.
     """
 
-    def __init__(self, model, args, dual_input_users=None):
+    def __init__(
+        self,
+        model: Any,
+        args: Any,
+        dual_input_users: Optional[List[str]] = None,
+    ):
         self.args = args
         self.dual_input_users = (
             DUAL_INPUT_USERS if dual_input_users is None else dual_input_users

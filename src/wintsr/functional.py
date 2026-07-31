@@ -5,6 +5,8 @@ These are vendored here (rather than imported from ``utils.tools``) so that the
 repository.
 """
 
+from typing import Tuple, Union
+
 import torch
 
 __all__ = ["normalize_scale", "get_baseline"]
@@ -53,7 +55,9 @@ def normalize_scale(
     raise NameError(f'Normalize method "{norm_type}" not implemented')
 
 
-def get_baseline(inputs, mode: str = "zero"):
+def get_baseline(
+    inputs: Union[torch.Tensor, Tuple[torch.Tensor, ...]], mode: str = "zero"
+) -> Union[torch.Tensor, Tuple[torch.Tensor, ...]]:
     """Build a baseline tensor (or tuple of them) matching ``inputs``.
 
     Args:

@@ -2,6 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2412.04532-b31b1b.svg)](https://arxiv.org/abs/2412.04532)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)
+[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue.svg)](https://khairulislam.github.io/WinTSR/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Which time steps and which features did your time series model actually use?**
@@ -44,8 +45,9 @@ Plot `attr` as a heatmap over `(seq_len, n_features)` to read off what the model
 | --- | --- |
 | **[Quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)** | 60 seconds, no dataset download. Plants a known signal, trains a small GRU, checks WinTSR recovers it. |
 | **[TSlib models notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb)** | Explaining DLinear, iTransformer, TimesNet and friends. No wrapper class needed. |
-| **[Integration cookbook](/docs/integration.md)** | Copy-paste recipes: dict/tuple outputs, classification, baselines, single horizons, speed, troubleshooting. |
-| **[Library reference](/docs/pypi_readme.md)** | Every argument, including `legacy_normalize=True` to reproduce the published numbers. |
+| **[Integration cookbook](https://khairulislam.github.io/WinTSR/integration/)** | Copy-paste recipes: dict/tuple outputs, classification, baselines, single horizons, speed, troubleshooting. |
+| **[Interpretation methods](https://khairulislam.github.io/WinTSR/methods/)** | What WinTSR, TSR, WinIT and GateMask each do differently, and when to reach for which one. |
+| **[API reference](https://khairulislam.github.io/WinTSR/reference/wintsr/)** | Every argument, generated from the docstrings, including `legacy_normalize=True` to reproduce the published numbers. |
 
 Already have a TSlib model? It takes four tensors, so split them into what you want
 attributed and what is just context:
@@ -71,7 +73,8 @@ The paper also benchmarks against Feature Ablation, Feature Permutation, Occlusi
 Augmented Occlusion, Dyna Mask, Extremal Mask, Lime, FIT, Gradient SHAP, and Integrated
 Gradients — all available directly from [Captum](https://captum.ai/docs/introduction) and
 [tint](https://josephenguehard.github.io/time_interpret/build/html/index.html), no
-wrapper needed.
+wrapper needed. See [Interpretation methods](https://khairulislam.github.io/WinTSR/methods/)
+for what each one does differently and when to use it.
 
 ## Repository layout
 
@@ -80,7 +83,7 @@ wrapper needed.
 | [src/wintsr/](/src/wintsr/) | The installable library. `WinTSR` plus the paper's baseline methods (`TSR`, `WinIT`, `GateMask`). |
 | [notebooks/](/notebooks/) | Runnable quickstart and TSlib walkthrough. |
 | [tests/](/tests/) | Test suite, including a numerical-equivalence check against the pre-refactor implementation. |
-| [docs/](/docs/) | Integration cookbook and the PyPI-page library reference. |
+| [docs/](/docs/) | Source for the [docs site](https://khairulislam.github.io/WinTSR/): tutorials, method explainer, API reference, and the PyPI-page library reference. |
 
 This repo is the library only. The training/interpretation harness that produced the
 paper's results — model zoo, experiment scripts, saved results — lives in

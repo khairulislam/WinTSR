@@ -40,7 +40,7 @@ class GateMask(PerturbationAttribution):
             modification of it.
 
     References:
-        #. `Explaining Time Series via Contrastive and Locally Sparse Perturbations (ContraLSP) <https://arxiv.org/abs/2305.18840>`
+        #. `Explaining Time Series via Contrastive and Locally Sparse Perturbations (ContraLSP) <https://arxiv.org/abs/2401.08552>`
     """
 
     def __init__(self, forward_func: Callable) -> None:

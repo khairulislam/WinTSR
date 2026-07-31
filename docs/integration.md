@@ -30,7 +30,7 @@ attr = WinTSR(model).attribute(inputs, baselines=torch.zeros_like(inputs))
 # (16, n_output, 96, 7)
 ```
 
-Full walkthrough: [notebooks/quickstart.ipynb](../notebooks/quickstart.ipynb).
+Full walkthrough: [quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb).
 
 ## TSlib models (DLinear, iTransformer, TimesNet, Autoformer, ...)
 
@@ -50,7 +50,7 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 `(batch, pred_len, c_out)`, `n_output` is `pred_len * c_out` — one saliency map per
 predicted value.
 
-Full walkthrough: [notebooks/tslib_models.ipynb](../notebooks/tslib_models.ipynb).
+Full walkthrough: [TSlib models notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb).
 
 ## Single-input foundation models (CALF, OFA/GPT4TS)
 

@@ -1,0 +1,65 @@
+site_name: WinTSR
+site_description: Windowed Temporal Saliency Rescaling — interpretability for time series deep learning models.
+site_url: https://khairulislam.github.io/WinTSR/
+repo_url: https://github.com/khairulislam/WinTSR
+repo_name: khairulislam/WinTSR
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Tutorials: integration.md
+  - Interpretation methods: methods.md
+  - Related work: related_works.md
+  - API reference:
+      - WinTSR: reference/wintsr.md
+      - TSR: reference/tsr.md
+      - WinIT: reference/winit.md
+      - GateMask: reference/gate_mask.md
+      - Functional utilities: reference/functional.md
+
+exclude_docs: |
+  pypi_readme.md
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_root_heading: true
+            show_source: false
+            merge_init_into_class: true
+            separate_signature: true
+            show_signature_annotations: true

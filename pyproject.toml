@@ -42,6 +42,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=7", "matplotlib"]
+docs = ["mkdocs-material>=9", "mkdocstrings[python]>=0.25"]
 
 [project.urls]
 Homepage = "https://github.com/khairulislam/WinTSR"

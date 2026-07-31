@@ -29,3 +29,6 @@ venv/
 
 # mypy
 .mypy_cache/
+
+# mkdocs
+site/
