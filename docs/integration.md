@@ -139,15 +139,6 @@ WinTSR(model).attribute(inputs, baselines=zeros, sliding_window_shapes=(6, 1))
 > plain `tint.attr.Occlusion` fails the same way — and WinTSR raises a clear `ValueError`
 > explaining it rather than letting the raw assertion through.
 
-## Reproducing the paper's numbers
-
-The published results used a min-max normalization that scaled the whole batch by the
-first sample's range. The default now normalizes each sample independently.
-
-```python
-WinTSR(model, legacy_normalize=True)
-```
-
 ## Comparing against other methods
 
 WinTSR is Captum-compatible, so the baselines are one-liners. The other methods from the

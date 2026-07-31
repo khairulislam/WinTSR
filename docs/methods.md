@@ -69,9 +69,6 @@ No wrapper needed for any of these — call them exactly as documented upstream:
 
 - **Default:** WinTSR. It's the method this package exists for, and the paper's results
   show it best recovers ground-truth relevance in both time and feature dimensions.
-- **Reproducing a specific paper comparison:** use the matching method above, and see
-  [Reproducing the paper](index.md#reproducing-the-paper) for the `legacy_normalize`
-  flag.
 - **Need a differentiable, gradient-only method:** TSR or Integrated Gradients.
 - **Classification model, want instance-wise delayed importance:** WinIT or FIT.
 - **Want a learned, sparse binary mask rather than a continuous score:** GateMask,

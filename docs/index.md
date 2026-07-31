@@ -47,7 +47,7 @@ Plot it as a heatmap over `(seq_len, n_features)` and you can read off what the 
 | `sliding_window_shapes` | Window over `(time, features)`. Defaults to `(1, 1)`. Widen the first entry to attribute over multi-step windows. |
 | `baselines` | Replacement values for occluded regions. Defaults to zeros; [`wintsr.get_baseline`](reference/functional.md) gives other options. |
 | `unflatten` | `True` (default) returns `(batch, n_output, seq_len, n_features)`. `False` returns the flat `(batch * n_output, ...)` layout used internally. |
-| `legacy_normalize` | Constructor flag. Restores the exact normalization used to produce the published numbers — see [Reproducing the paper](#reproducing-the-paper). |
+| `legacy_normalize` | Constructor flag. Restores the exact normalization used to produce the published numbers. |
 
 ### Multi-input models
 
@@ -76,22 +76,6 @@ attr_enc, attr_mark = WinTSR(model).attribute(
   [quickstart](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)
   and
   [TSlib models](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb).
-
-## Reproducing the paper
-
-The published results were produced with a min-max normalization that scaled the whole
-batch by the first sample's range. The packaged default normalizes each sample
-independently. Thresholding is unaffected either way (it is a per-sample quantile,
-invariant to a shared affine transform), but final attribution magnitudes differ. To
-reproduce the paper exactly:
-
-```python
-WinTSR(model, legacy_normalize=True)
-```
-
-Training the models and running the full benchmark lives in a separate repo,
-[WinTSR-research](https://github.com/khairulislam/WinTSR-research), which depends on
-this package the same way any other user would.
 
 ## Citation
 

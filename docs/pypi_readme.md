@@ -72,22 +72,6 @@ runnable notebooks:
 and
 [TSlib models](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb).
 
-## Reproducing the paper
-
-The published results were produced with a min-max normalization that scaled the whole
-batch by the first sample's range. The packaged default normalizes each sample
-independently. Thresholding is unaffected either way (it is a per-sample quantile,
-invariant to a shared affine transform), but final attribution magnitudes differ. To
-reproduce the paper exactly:
-
-```python
-WinTSR(model, legacy_normalize=True)
-```
-
-Training the models and running the full benchmark lives in a separate repo,
-[WinTSR-research](https://github.com/khairulislam/WinTSR-research), which depends on
-this package the same way any other user would.
-
 ## Requirements
 
 `torch`, `numpy`, `captum`, and [`time-interpret`](https://github.com/josephenguehard/time_interpret).
