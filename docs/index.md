@@ -37,7 +37,9 @@ attr = WinTSR(model).attribute(
 attr.shape  # (16, n_output, 96, 7) -- (batch, n_output, seq_len, n_features)
 ```
 
-Plot it as a heatmap over `(seq_len, n_features)` and you can read off what the model used.
+Plot it as a heatmap over `(seq_len, n_features)` and you can read off what the model used:
+
+![WinTSR attribution heatmap recovering a planted ground-truth signal at feature 0, steps 20-25, on a synthetic AR(1) series](assets/wintsr_heatmap.png)
 
 ### Options that matter
 
@@ -70,6 +72,8 @@ attr_enc, attr_mark = WinTSR(model).attribute(
   classification, baseline choice, single horizons, speed tuning, and troubleshooting.
 - **[Interpretation methods](methods.md)** — what WinTSR, TSR, WinIT and GateMask each
   do differently, and when to reach for which one.
+- **[Supported models](models.md)** — which model architectures and calling
+  conventions this works with out of the box.
 - **[API reference](reference/wintsr.md)** — every argument, generated from the
   docstrings.
 - Runnable notebooks:

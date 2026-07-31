@@ -9,6 +9,7 @@ nav:
   - Home: index.md
   - Tutorials: integration.md
   - Interpretation methods: methods.md
+  - Supported models: models.md
   - Related work: related_works.md
   - API reference:
       - WinTSR: reference/wintsr.md
