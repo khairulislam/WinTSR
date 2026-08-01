@@ -3,9 +3,9 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "wintsr"
+name = "tslens"
 version = "0.1.0"
-description = "Windowed Temporal Saliency Rescaling: interpretability for time series deep learning models"
+description = "A consistent PyTorch interface to attribution methods for time series deep learning models, including WinTSR"
 readme = "docs/pypi_readme.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
@@ -45,8 +45,8 @@ dev = ["pytest>=7", "matplotlib"]
 docs = ["mkdocs-material>=9", "mkdocstrings[python]>=0.25"]
 
 [project.urls]
-Homepage = "https://github.com/khairulislam/WinTSR"
-Repository = "https://github.com/khairulislam/WinTSR"
+Homepage = "https://github.com/khairulislam/tslens"
+Repository = "https://github.com/khairulislam/tslens"
 Paper = "https://arxiv.org/abs/2412.04532"
 
 [tool.setuptools]

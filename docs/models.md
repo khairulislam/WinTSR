@@ -9,11 +9,11 @@ That said, real forecasting/classification models rarely take a single clean ten
 The tables below are the models this package (and its baselines) have actually been
 run against, and exactly how to wire each calling convention into `.attribute(...)`.
 
-<div class="wintsr-stats model-stats" markdown>
-  <div><strong>17</strong><span>single-input models</span></div>
-  <div><strong>12</strong><span>TSlib-style models</span></div>
-  <div><strong>9</strong><span>architecture families</span></div>
-  <div><strong>29</strong><span>tested architectures</span></div>
+<div class="tslens-stats model-stats" markdown>
+  <div><strong>Single-input</strong><span>models</span></div>
+  <div><strong>TSlib-style</strong><span>models</span></div>
+  <div><strong>Multiple</strong><span>architecture families</span></div>
+  <div><strong>Growing</strong><span>list of tested architectures</span></div>
 </div>
 
 !!! info "Not listed?"
@@ -54,7 +54,7 @@ attr = WinTSR(model).attribute(inputs=x_enc, baselines=torch.zeros_like(x_enc))
 
 These [TSlib](https://github.com/thuml/Time-Series-Library) models consume every
 forward argument themselves (`x_enc, x_mark_enc, x_dec, x_mark_dec`), so the calendar
-features get attributed alongside the series. `wintsr.attr.tsr.DUAL_INPUT_USERS` is the
+features get attributed alongside the series. `tslens.attr.tsr.DUAL_INPUT_USERS` is the
 canonical list — pass `dual_input_users=[...]` to `TSR` if you're explaining a model not
 on it.
 
@@ -82,7 +82,7 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 ```
 
 See the [integration cookbook](integration.md) for the full walkthrough, or the
-[TSlib models notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb)
+[TSlib models notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/tslib_models.ipynb)
 to run it.
 
 ## Model zoo and training harness
@@ -90,5 +90,5 @@ to run it.
 Trained checkpoints, dataset loaders, and experiment scripts for all of the above live
 in [WinTSR-research](https://github.com/khairulislam/WinTSR-research) — the paper's
 training/interpretation harness, which depends on this package the same way any user
-would (`pip install wintsr`). This repository ships the attribution methods only; it
+would (`pip install tslens`). This repository ships the attribution methods only; it
 does not vendor model code.

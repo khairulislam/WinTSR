@@ -1,7 +1,7 @@
 # Interpretation methods
 
 Choose an attribution method based on the model interface, explanation you need, and
-available compute. The toolkit covers 14 local attribution methods for time-series
+available compute. The toolkit covers local attribution methods for time-series
 models across perturbation, gradient, distributional, learned-mask, and surrogate
 approaches. They follow the familiar `.attribute(...)` pattern from
 [Captum](https://captum.ai/docs/introduction) and
@@ -12,7 +12,7 @@ approaches. They follow the familiar `.attribute(...)` pattern from
 *A synthetic series with a known answer — one feature, one window, everything else
 noise. WinTSR's saliency map (right two panels) lights up exactly where the ground
 truth (left) says it should. Reproduce this with the
-[quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb).*
+[quickstart notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb).*
 
 ## At a glance
 

@@ -1,7 +1,7 @@
 """Small tensor helpers used by the attribution methods.
 
 These are vendored here (rather than imported from ``utils.tools``) so that the
-``wintsr`` package is installable and usable without the rest of the research
+``tslens`` package is installable and usable without the rest of the research
 repository.
 """
 
@@ -28,7 +28,7 @@ def normalize_scale(
         norm_type: one of ``standard``, ``minmax`` or ``l1``.
         legacy: reproduce the exact ``minmax`` behaviour of the original WinTSR
             research code, which normalizes the whole tensor by the *first*
-            slice's min/max instead of per-slice. See :class:`wintsr.WinTSR` for
+            slice's min/max instead of per-slice. See :class:`tslens.WinTSR` for
             why this switch exists. Ignored for other ``norm_type`` values.
     """
     if norm_type == "standard":

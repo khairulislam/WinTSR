@@ -1,7 +1,7 @@
 :root {
-  --wintsr-accent: #5b5bd6;
-  --wintsr-cyan: #0ea5a8;
-  --wintsr-border: color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
+  --tslens-accent: #5b5bd6;
+  --tslens-cyan: #0ea5a8;
+  --tslens-border: color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
 }
 
 .md-typeset h1 {
@@ -20,29 +20,29 @@
   border-radius: 0.4rem;
 }
 
-.wintsr-stats {
+.tslens-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.65rem;
   margin: 1.5rem 0;
 }
 
-.wintsr-stats > div {
+.tslens-stats > div {
   padding: 0.85rem 0.65rem;
-  border: 1px solid var(--wintsr-border);
+  border: 1px solid var(--tslens-border);
   border-radius: 0.55rem;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--wintsr-accent) 9%, transparent), color-mix(in srgb, var(--wintsr-cyan) 5%, transparent));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--tslens-accent) 9%, transparent), color-mix(in srgb, var(--tslens-cyan) 5%, transparent));
   text-align: center;
 }
 
-.wintsr-stats strong {
+.tslens-stats strong {
   display: block;
-  color: var(--wintsr-accent);
+  color: var(--tslens-accent);
   font-size: 1.75rem;
   line-height: 1;
 }
 
-.wintsr-stats span {
+.tslens-stats span {
   display: block;
   margin-top: 0.35rem;
   color: var(--md-default-fg-color--light);
@@ -51,11 +51,11 @@
 }
 
 .method-grid .card {
-  border-top: 0.15rem solid var(--wintsr-accent);
+  border-top: 0.15rem solid var(--tslens-accent);
 }
 
 @media screen and (max-width: 44.984375em) {
-  .wintsr-stats {
+  .tslens-stats {
     grid-template-columns: repeat(2, 1fr);
   }
 }

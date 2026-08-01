@@ -83,7 +83,7 @@ class WinTSR(Occlusion):
 
     Example:
         >>> import torch
-        >>> from wintsr import WinTSR
+        >>> from tslens import WinTSR
         >>> explainer = WinTSR(model)
         >>> attr = explainer.attribute(
         ...     inputs=torch.randn(8, 96, 7),

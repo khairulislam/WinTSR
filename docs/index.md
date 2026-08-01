@@ -1,22 +1,23 @@
-# WinTSR
+# tslens
 
-### Time-aware attribution for deep time-series models
+### A consistent PyTorch interface to time-series attribution methods
 
 **Discover which time steps and features drove your model's prediction.**
 
-WinTSR (Windowed Temporal Saliency Rescaling) is a local attribution method for
-PyTorch time-series models. It accounts for dependencies between neighbouring time
-steps and scores time and feature importance jointly, producing an interpretable
-saliency map over the input window.
+tslens is a Captum-compatible interpretability toolkit for PyTorch time-series
+models. It bundles WinTSR — a local attribution method that accounts for
+dependencies between neighbouring time steps and scores time and feature
+importance jointly — alongside other established attribution methods behind
+one consistent interface.
 
 [Get started](#quickstart){ .md-button .md-button--primary }
-[Open in Colab](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb){ .md-button }
+[Open in Colab](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb){ .md-button }
 [Read the paper](https://arxiv.org/abs/2412.04532){ .md-button }
 
-<div class="wintsr-stats" markdown>
-  <div><strong>14</strong><span>attribution methods</span></div>
-  <div><strong>29</strong><span>tested architectures</span></div>
-  <div><strong>5</strong><span>runnable notebooks</span></div>
+<div class="tslens-stats" markdown>
+  <div><strong>Captum + tint</strong><span>method coverage</span></div>
+  <div><strong>TSlib</strong><span>architectures tested</span></div>
+  <div><strong>Runnable</strong><span>notebooks</span></div>
   <div><strong>1</strong><span>consistent interface</span></div>
 </div>
 
@@ -42,38 +43,39 @@ saliency map over the input window.
 
 -   :material-compare:{ .lg .middle } **A consistent comparison surface**
 
-    Use WinTSR alongside 13 established attribution methods from Captum and Time
+    Use WinTSR alongside established attribution methods from Captum and Time
     Interpret.
 
 </div>
 
 ## A broad interpretation toolkit
 
-Explore 14 attribution methods through a consistent PyTorch workflow. Choose an
-approach based on your model, explanation goal, and available compute.
+Explore attribution methods spanning perturbation, gradient, learned-mask, and
+surrogate approaches through a consistent PyTorch workflow. Choose an approach
+based on your model, explanation goal, and available compute.
 
 <div class="grid cards method-grid" markdown>
 
--   **Perturbation and occlusion** · 7 methods
+-   **Perturbation and occlusion**
 
     WinTSR · WinIT · Occlusion · Feature Ablation · Feature Permutation ·
     Augmented Occlusion · FIT
 
     [Explore perturbation methods →](methods.md#occlusion-based)
 
--   **Gradient-based** · 3 methods
+-   **Gradient-based**
 
     TSR · Integrated Gradients · Gradient SHAP
 
     [Explore gradient methods →](methods.md#gradient-based)
 
--   **Learned masks** · 3 methods
+-   **Learned masks**
 
     GateMask · Dyna Mask · Extremal Mask
 
     [Explore learned masks →](methods.md#learned-masks)
 
--   **Local surrogate** · 1 method
+-   **Local surrogate**
 
     Lime
 
@@ -81,22 +83,22 @@ approach based on your model, explanation goal, and available compute.
 
 </div>
 
-[Compare all 14 methods](methods.md){ .md-button .md-button--primary }
-[Browse 29 tested models](models.md){ .md-button }
+[Compare all methods](methods.md){ .md-button .md-button--primary }
+[Browse tested models](models.md){ .md-button }
 
 ## Quickstart
 
-Install WinTSR from PyPI. Python 3.9+ and PyTorch 1.13+ are required.
+Install tslens from PyPI. Python 3.9+ and PyTorch 1.13+ are required.
 
 ```bash
-pip install wintsr
+pip install tslens
 ```
 
 Pass a model and a tensor shaped `(batch, seq_len, n_features)`:
 
 ```python
 import torch
-from wintsr import WinTSR
+from tslens import WinTSR
 
 inputs = torch.randn(16, 96, 7)
 baselines = torch.zeros_like(inputs)
@@ -157,7 +159,7 @@ outputs, single forecast horizons, baseline selection, and performance tuning.
 
 -   **[Interpretation methods](methods.md)**
 
-    Compare requirements, trade-offs, and recommended use cases for all 14 methods.
+    Compare requirements, trade-offs, and recommended use cases for every method.
 
 -   **[Supported models](models.md)**
 

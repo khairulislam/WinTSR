@@ -2,7 +2,7 @@ import pytest
 import torch
 from torch import nn
 
-from wintsr import WinTSR, get_baseline
+from tslens import WinTSR, get_baseline
 
 SEQ_LEN, N_FEATURES, PRED_LEN, BATCH = 12, 3, 2, 4
 
@@ -143,7 +143,7 @@ def test_harness_call_site_is_unchanged(model, inputs):
 
 def test_baselines_are_lazily_importable():
     """Baseline methods are exposed but not imported until requested."""
-    import wintsr.attr as attr_pkg
+    import tslens.attr as attr_pkg
 
     assert "TSR" in dir(attr_pkg)
     with pytest.raises(AttributeError):
@@ -151,11 +151,11 @@ def test_baselines_are_lazily_importable():
 
 
 def test_all_methods_import_without_the_research_harness(tmp_path):
-    """A bare `pip install wintsr` must expose all four methods.
+    """A bare `pip install tslens` must expose all four methods.
 
     Runs in a subprocess from an unrelated working directory, so the harness
     packages under research/ are not importable -- exactly the situation of a
-    user who ran `pip install wintsr` and never cloned the repo.
+    user who ran `pip install tslens` and never cloned the repo.
     """
     import subprocess
     import sys
@@ -163,8 +163,8 @@ def test_all_methods_import_without_the_research_harness(tmp_path):
 
     program = textwrap.dedent(
         """
-        from wintsr.attr import WinTSR, TSR, WinIT, GateMask
-        from wintsr.attr.tsr import DUAL_INPUT_USERS
+        from tslens.attr import WinTSR, TSR, WinIT, GateMask
+        from tslens.attr.tsr import DUAL_INPUT_USERS
 
         assert "iTransformer" in DUAL_INPUT_USERS
 
@@ -191,8 +191,8 @@ def test_all_methods_import_without_the_research_harness(tmp_path):
 
 def test_tsr_dual_input_users_is_overridable():
     """Callers can name their own dual-input models."""
-    from wintsr.attr import TSR
-    from wintsr.attr.tsr import DUAL_INPUT_USERS
+    from tslens.attr import TSR
+    from tslens.attr.tsr import DUAL_INPUT_USERS
 
     class Args:
         model = "MyCustomModel"

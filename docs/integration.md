@@ -34,14 +34,14 @@ If it maps `(batch, seq_len, n_features)` to predictions, there is nothing to co
 
 ```python
 import torch
-from wintsr import WinTSR
+from tslens import WinTSR
 
 inputs = torch.randn(16, 96, 7)
 attr = WinTSR(model).attribute(inputs, baselines=torch.zeros_like(inputs))
 # (16, n_output, 96, 7)
 ```
 
-Full walkthrough: [quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb).
+Full walkthrough: [quickstart notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb).
 
 ## TSlib models (DLinear, iTransformer, TimesNet, Autoformer, ...)
 
@@ -61,7 +61,7 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 `(batch, pred_len, c_out)`, `n_output` is `pred_len * c_out` — one saliency map per
 predicted value.
 
-Full walkthrough: [TSlib models notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb).
+Full walkthrough: [TSlib models notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/tslib_models.ipynb).
 
 ## Single-input foundation models (CALF, OFA/GPT4TS)
 
@@ -87,7 +87,7 @@ attr = WinTSR(model).attribute(
 # (batch, n_classes, seq_len, n_features)
 ```
 
-Full walkthrough: [classification notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/classification.ipynb).
+Full walkthrough: [classification notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/classification.ipynb).
 
 ## Models that return a dict or a tuple
 
@@ -102,7 +102,7 @@ attr = WinTSR(lambda x: model(x)["outputs_time"]).attribute(inputs, baselines=..
 attr = WinTSR(lambda x: model(x)[0]).attribute(inputs, baselines=...)
 ```
 
-Full walkthrough: [custom outputs notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/custom_outputs.ipynb).
+Full walkthrough: [custom outputs notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/custom_outputs.ipynb).
 
 ## Choosing a baseline
 
@@ -110,7 +110,7 @@ The baseline is what an occluded region is replaced with. Zeros are the default 
 fine for standardized data.
 
 ```python
-from wintsr import get_baseline
+from tslens import get_baseline
 
 get_baseline(inputs, "zero")     # zeros (default)
 get_baseline(inputs, "random")   # standard normal noise
@@ -121,7 +121,7 @@ get_baseline(inputs, "mean")     # each feature's mean, broadcast
 Use `"normal"` or `"mean"` when zero is a meaningful value in your data and would itself
 look like a signal.
 
-Full walkthrough: [baselines notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/baselines.ipynb).
+Full walkthrough: [baselines notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/baselines.ipynb).
 
 ## Explaining one forecast horizon
 
@@ -163,7 +163,7 @@ WinTSR follows Captum's attribution interface, so comparisons are concise:
 ```python
 from captum.attr import IntegratedGradients
 from tint.attr import FeatureAblation, Occlusion
-from wintsr.attr import WinTSR, WinIT, GateMask, TSR
+from tslens.attr import WinTSR, WinIT, GateMask, TSR
 
 Occlusion(model).attribute(inputs, sliding_window_shapes=(1, 1), baselines=zeros)
 IntegratedGradients(model).attribute(inputs, baselines=zeros)

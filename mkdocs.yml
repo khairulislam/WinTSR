@@ -1,8 +1,8 @@
-site_name: WinTSR
-site_description: Time-aware attribution for deep time-series models.
-site_url: https://khairulislam.github.io/WinTSR/
-repo_url: https://github.com/khairulislam/WinTSR
-repo_name: khairulislam/WinTSR
+site_name: tslens
+site_description: A consistent PyTorch interface to 14 time-series attribution methods, including WinTSR.
+site_url: https://khairulislam.github.io/tslens/
+repo_url: https://github.com/khairulislam/tslens
+repo_name: khairulislam/tslens
 edit_uri: edit/main/docs/
 
 extra_css:

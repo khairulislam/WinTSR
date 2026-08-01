@@ -1,13 +1,13 @@
 """Attribution methods for time series models.
 
-:class:`WinTSR` is the method introduced in the paper. :class:`TSR`,
-:class:`WinIT` and :class:`GateMask` are the baselines used in its evaluation.
-All four work from a plain ``pip install wintsr`` -- none of them require the
-research harness under ``research/``.
+:class:`WinTSR` is the method introduced in the paper it's named after.
+:class:`TSR`, :class:`WinIT` and :class:`GateMask` are the baselines used in
+its evaluation. All four work from a plain ``pip install tslens`` -- none of
+them require the research harness under ``research/``.
 
-The baselines are imported lazily so that ``import wintsr`` stays cheap and does
-not drag in ``pytorch_lightning`` or ``sklearn`` unless a method that needs them
-is actually requested.
+The baselines are imported lazily so that ``import tslens`` stays cheap and
+does not drag in ``pytorch_lightning`` or ``sklearn`` unless a method that
+needs them is actually requested.
 """
 
 from typing import TYPE_CHECKING
@@ -38,7 +38,7 @@ def __getattr__(name: str):
             f"{name} could not be imported. It is a baseline method whose "
             "dependencies normally arrive with `time-interpret`; a broken or "
             "partial install is the usual cause. Try reinstalling with "
-            f"`pip install --force-reinstall wintsr`. Original error: {exc}"
+            f"`pip install --force-reinstall tslens`. Original error: {exc}"
         ) from exc
 
     value = getattr(module, name)

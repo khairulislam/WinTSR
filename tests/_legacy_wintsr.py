@@ -1,7 +1,7 @@
 """FROZEN SNAPSHOT -- do not edit.
 
 Verbatim copy of ``attrs/winTSR.py`` as of commit ae3678b, before the method was
-extracted into the installable ``wintsr`` package. Exists solely so
+extracted into the installable ``tslens`` package. Exists solely so
 ``test_wintsr.py`` can assert the packaged implementation is numerically
 identical to the code the paper's results were produced with.
 """

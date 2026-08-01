@@ -7,7 +7,7 @@ authors:
     email: khairulislam@virginia.edu
   - family-names: Fox
     given-names: Judy
-repository-code: "https://github.com/khairulislam/WinTSR"
+repository-code: "https://github.com/khairulislam/tslens"
 license: MIT
 preferred-citation:
   type: article

@@ -1,39 +1,41 @@
-# WinTSR
+# tslens
 
-### Windowed Temporal Saliency Rescaling for time-series models
+### A consistent PyTorch interface to time-series attribution methods
 
 [![arXiv](https://img.shields.io/badge/arXiv-2412.04532-b31b1b.svg)](https://arxiv.org/abs/2412.04532)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)
-[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue.svg)](https://khairulislam.github.io/WinTSR/)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb)
+[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue.svg)](https://khairulislam.github.io/tslens/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Which time steps and features did your time-series model actually use?**
 
-WinTSR is a drop-in, Captum-compatible attribution method for PyTorch time-series
-models. It produces a saliency map over the input window so you can inspect *when*
-and *where* a model found evidence for its prediction.
+tslens is a drop-in, Captum-compatible interpretability toolkit for PyTorch
+time-series models. Every method produces a saliency map over the input window so you
+can inspect *when* and *where* a model found evidence for its prediction.
 
 Explaining time series models is hard for two reasons that attribution methods borrowed
 from vision and NLP do not handle: subsequent time steps are strongly dependent, and
 feature importance varies over time. Existing studies (1) do not consider the temporal
 dependencies among the feature vectors in the input window, and (2) consider the time
 dimension separately from the feature dimension when calculating importance scores.
-**Windowed Temporal Saliency Rescaling (WinTSR)** addresses both.
+**Windowed Temporal Saliency Rescaling (WinTSR)**, the toolkit's native flagship
+method, addresses both.
 
 ![WinTSR attribution heatmap](docs/assets/wintsr_heatmap.png)
 
-## Why WinTSR?
+## Why tslens?
 
 - **Model-agnostic:** explain any callable PyTorch model with the expected input shape.
-- **Time-aware:** preserve relationships between neighbouring observations.
+- **Time-aware:** preserve relationships between neighbouring observations, via WinTSR.
 - **Joint attribution:** identify important time–feature regions, not just global features.
 - **Practical:** support multi-input models, custom baselines, classification, and forecasting.
-- **One interface:** compare WinTSR with 13 established attribution methods.
+- **One interface:** compare established attribution methods from Captum, Time Interpret,
+  and this package's own native implementations side by side.
 
 ## Quickstart
 
 ```bash
-pip install wintsr
+pip install tslens
 ```
 
 Requires Python 3.9+ and PyTorch 1.13+. Works with any PyTorch model mapping
@@ -42,7 +44,7 @@ dataset format to conform to:
 
 ```python
 import torch
-from wintsr import WinTSR
+from tslens import WinTSR
 
 inputs = torch.randn(16, 96, 7)             # (batch, seq_len, n_features)
 attr = WinTSR(model).attribute(
@@ -66,14 +68,14 @@ Plot `attr` as a heatmap over `(seq_len, n_features)` to read off what the model
 
 | | |
 | --- | --- |
-| **[Quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)** | 60 seconds, no dataset download. Plants a known signal, trains a small GRU, checks WinTSR recovers it. |
-| **[TSlib models notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb)** | Explaining DLinear, iTransformer, TimesNet and friends. No wrapper class needed. |
-| **[Classification notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/classification.ipynb)** | `n_output` becomes the class count; a padding mask goes through as context, not as an attributed input. |
-| **[Baselines notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/baselines.ipynb)** | Why the baseline matters, `get_baseline`'s four modes compared by attribution quality, and how to use a custom one. |
-| **[Custom outputs notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/custom_outputs.ipynb)** | Wrapping models that return a dict or tuple (TimeLLM-style) with a one-line lambda. |
-| **[Integration cookbook](https://khairulislam.github.io/WinTSR/integration/)** | Copy-paste recipes: dict/tuple outputs, classification, baselines, single horizons, speed, troubleshooting. |
-| **[Interpretation methods](https://khairulislam.github.io/WinTSR/methods/)** | What WinTSR, TSR, WinIT and GateMask each do differently, and when to reach for which one. |
-| **[API reference](https://khairulislam.github.io/WinTSR/reference/wintsr/)** | Every argument, generated from the docstrings, including `legacy_normalize=True` to reproduce the published numbers. |
+| **[Quickstart notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb)** | 60 seconds, no dataset download. Plants a known signal, trains a small GRU, checks WinTSR recovers it. |
+| **[TSlib models notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/tslib_models.ipynb)** | Explaining DLinear, iTransformer, TimesNet and friends. No wrapper class needed. |
+| **[Classification notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/classification.ipynb)** | `n_output` becomes the class count; a padding mask goes through as context, not as an attributed input. |
+| **[Baselines notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/baselines.ipynb)** | Why the baseline matters, `get_baseline`'s four modes compared by attribution quality, and how to use a custom one. |
+| **[Custom outputs notebook](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/custom_outputs.ipynb)** | Wrapping models that return a dict or tuple (TimeLLM-style) with a one-line lambda. |
+| **[Integration cookbook](https://khairulislam.github.io/tslens/integration/)** | Copy-paste recipes: dict/tuple outputs, classification, baselines, single horizons, speed, troubleshooting. |
+| **[Interpretation methods](https://khairulislam.github.io/tslens/methods/)** | What WinTSR, TSR, WinIT and GateMask each do differently, and when to reach for which one. |
+| **[API reference](https://khairulislam.github.io/tslens/reference/wintsr/)** | Every argument, generated from the docstrings, including `legacy_normalize=True` to reproduce the published numbers. |
 
 Already have a TSlib model? It takes four tensors, so split them into what you want
 attributed and what is just context:
@@ -88,15 +90,15 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 
 ## Interpretation methods
 
-WinTSR gives you 14 attribution methods through one interface, and works with any
-PyTorch time series model. Four — WinTSR, TSR, WinIT, GateMask — are implemented
-natively here; the other ten call [Captum](https://captum.ai/docs/introduction) and
+tslens gives you a broad set of attribution methods through one interface, and works
+with any PyTorch time series model. WinTSR, TSR, WinIT, and GateMask are implemented
+natively here; the rest call [Captum](https://captum.ai/docs/introduction) and
 [tint](https://josephenguehard.github.io/time_interpret/build/html/index.html) directly.
-See [Interpretation methods](https://khairulislam.github.io/WinTSR/methods/) for what
+See [Interpretation methods](https://khairulislam.github.io/tslens/methods/) for what
 each one does differently and when to use it.
 
 <details>
-<summary><b>All 14 supported methods</b> (click to expand)</summary>
+<summary><b>Supported methods</b> (click to expand)</summary>
 
 | Method | Type | Paper |
 | --- | --- | --- |
@@ -116,18 +118,18 @@ each one does differently and when to use it.
 | Lime | Surrogate | [Ribeiro et al., KDD 2016](https://arxiv.org/abs/1602.04938) |
 
 Full comparison matrix (model requirement, baseline, API doc):
-[Interpretation methods](https://khairulislam.github.io/WinTSR/methods/).
+[Interpretation methods](https://khairulislam.github.io/tslens/methods/).
 </details>
 
 ## Supported models
 
-WinTSR attributes any callable that maps `(batch, seq_len, n_features)` — or a tuple of
+tslens attributes any callable that maps `(batch, seq_len, n_features)` — or a tuple of
 tensors — to predictions, so nothing here is hard-coded to a specific architecture. The
 list below is what this package and its [research harness](https://github.com/khairulislam/WinTSR-research)
 have actually been run against.
 
 <details>
-<summary><b>All 29 supported model architectures</b> (click to expand)</summary>
+<summary><b>Supported model architectures</b> (click to expand)</summary>
 
 | Model | Family | Paper |
 | --- | --- | --- |
@@ -162,22 +164,22 @@ have actually been run against.
 | RNN | Recurrent | [Hochreiter & Schmidhuber, Neural Computation 1997](https://www.bioinf.jku.at/publications/older/2604.pdf) |
 
 Calling convention (single vs. dual-input) and trained checkpoints:
-[Supported models](https://khairulislam.github.io/WinTSR/models/).
+[Supported models](https://khairulislam.github.io/tslens/models/).
 </details>
 
 ## Repository layout
 
 | Path | What it is |
 | --- | --- |
-| [src/wintsr/](/src/wintsr/) | The installable library. `WinTSR` plus the paper's baseline methods (`TSR`, `WinIT`, `GateMask`). |
+| [src/tslens/](/src/tslens/) | The installable library. `WinTSR` plus the paper's baseline methods (`TSR`, `WinIT`, `GateMask`). |
 | [notebooks/](/notebooks/) | Runnable quickstart and TSlib walkthrough. |
 | [tests/](/tests/) | Test suite, including a numerical-equivalence check against the pre-refactor implementation. |
-| [docs/](/docs/) | Source for the [docs site](https://khairulislam.github.io/WinTSR/): tutorials, method explainer, API reference, and the PyPI-page library reference. |
+| [docs/](/docs/) | Source for the [docs site](https://khairulislam.github.io/tslens/): tutorials, method explainer, API reference, and the PyPI-page library reference. |
 
 This repo is the library only. The training/interpretation harness that produced the
 paper's results — model zoo, experiment scripts, saved results — lives in
 [WinTSR-research](https://github.com/khairulislam/WinTSR-research) and depends on this
-package the same way any user would (`pip install wintsr`).
+package the same way any user would (`pip install tslens`).
 
 ## Reproducing the paper
 
@@ -208,8 +210,10 @@ MIT — see [LICENSE](LICENSE).
 
 ## Core libraries
 
-WinTSR builds on these open-source projects:
+tslens builds on these open-source projects:
 
 - **[Captum](https://captum.ai/docs/introduction)** — model interpretability library for PyTorch.
 - **[Time Interpret (tint)](https://josephenguehard.github.io/time_interpret/build/html/index.html)** — extends Captum with methods designed for time series.
 - **[Time-Series-Library (TSlib)](https://github.com/thuml/Time-Series-Library)** — deep time series analysis models used in the benchmark.
+
+<!-- add here https://github.com/thuml/OpenLTM, https://github.com/thuml/Large-Time-Series-Model, https://github.com/fzi-forschungszentrum-informatik/TSInterpret.git -->

@@ -1,19 +1,21 @@
-# WinTSR
+# tslens
 
 **Which time steps and which features did your time series model actually use?**
 
-WinTSR (Windowed Temporal Saliency Rescaling) is a local attribution method for deep
-time series models. Unlike attribution methods borrowed from vision and NLP, it accounts
-for the temporal dependency between neighbouring time steps and scores the time and
-feature dimensions jointly rather than separately.
+tslens is a Captum-compatible interpretability toolkit for deep time series models,
+giving you a consistent PyTorch interface to WinTSR and other established attribution
+methods. WinTSR (Windowed Temporal Saliency Rescaling), the native flagship method,
+accounts for the temporal dependency between neighbouring time steps and scores the
+time and feature dimensions jointly rather than separately — unlike attribution
+methods borrowed from vision and NLP.
 
 Paper: [arXiv:2412.04532](https://arxiv.org/abs/2412.04532) ·
-Code: [github.com/khairulislam/WinTSR](https://github.com/khairulislam/WinTSR)
+Code: [github.com/khairulislam/tslens](https://github.com/khairulislam/tslens)
 
 ## Install
 
 ```bash
-pip install wintsr
+pip install tslens
 ```
 
 ## Use
@@ -23,7 +25,7 @@ No training framework to adopt, no dataset format to conform to.
 
 ```python
 import torch
-from wintsr import WinTSR
+from tslens import WinTSR
 
 inputs = torch.randn(16, 96, 7)          # (batch, seq_len, n_features)
 attr = WinTSR(model).attribute(
@@ -43,7 +45,7 @@ Plot it as a heatmap over `(seq_len, n_features)` and you can read off what the 
 | --- | --- |
 | `threshold` | Quantile of time-relevance below which steps are skipped in stage two. Higher is faster and sparser; `0.0` keeps every step. |
 | `sliding_window_shapes` | Window over `(time, features)`. Defaults to `(1, 1)`. Widen the first entry to attribute over multi-step windows. |
-| `baselines` | Replacement values for occluded regions. Defaults to zeros; `wintsr.get_baseline(inputs, "normal")` gives other options. |
+| `baselines` | Replacement values for occluded regions. Defaults to zeros; `tslens.get_baseline(inputs, "normal")` gives other options. |
 | `unflatten` | `True` (default) returns `(batch, n_output, seq_len, n_features)`. `False` returns the flat `(batch * n_output, ...)` layout used internally. |
 | `legacy_normalize` | Constructor flag. Restores the exact normalization used to produce the published numbers — see below. |
 
@@ -64,13 +66,13 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 
 ### More recipes
 
-The [integration cookbook](https://github.com/khairulislam/WinTSR/blob/main/docs/integration.md)
+The [integration cookbook](https://github.com/khairulislam/tslens/blob/main/docs/integration.md)
 has copy-paste snippets for dict/tuple model outputs, classification models, baseline
 choice, explaining a single forecast horizon, speed tuning, and troubleshooting. Two
 runnable notebooks:
-[quickstart](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)
+[quickstart](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb)
 and
-[TSlib models](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb).
+[TSlib models](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/tslib_models.ipynb).
 
 ## Requirements
 

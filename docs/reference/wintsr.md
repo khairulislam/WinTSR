@@ -4,4 +4,4 @@ Window-aware attribution that scores temporal and feature relevance jointly. See
 [quickstart](../index.md#quickstart) for a minimal example or the
 [integration cookbook](../integration.md) for model-specific recipes.
 
-::: wintsr.WinTSR
+::: tslens.WinTSR
