@@ -1,17 +1,22 @@
 site_name: WinTSR
-site_description: Windowed Temporal Saliency Rescaling — interpretability for time series deep learning models.
+site_description: Time-aware attribution for deep time-series models.
 site_url: https://khairulislam.github.io/WinTSR/
 repo_url: https://github.com/khairulislam/WinTSR
 repo_name: khairulislam/WinTSR
 edit_uri: edit/main/docs/
 
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Home: index.md
-  - Tutorials: integration.md
+  - Guides:
+      - Integration cookbook: integration.md
+      - Supported models: models.md
   - Interpretation methods: methods.md
-  - Supported models: models.md
   - Related work: related_works.md
   - API reference:
+      - Overview: reference/index.md
       - WinTSR: reference/wintsr.md
       - TSR: reference/tsr.md
       - WinIT: reference/winit.md
@@ -39,12 +44,21 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
     - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
     - content.code.copy
+    - content.code.annotate
     - content.action.edit
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
   - tables
   - pymdownx.details
   - pymdownx.superfences

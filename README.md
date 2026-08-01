@@ -1,11 +1,17 @@
-# WinTSR: Interpreting Multi-Horizon Time Series Deep Learning Models
+# WinTSR
+
+### Windowed Temporal Saliency Rescaling for time-series models
 
 [![arXiv](https://img.shields.io/badge/arXiv-2412.04532-b31b1b.svg)](https://arxiv.org/abs/2412.04532)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)
 [![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue.svg)](https://khairulislam.github.io/WinTSR/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Which time steps and which features did your time series model actually use?**
+**Which time steps and features did your time-series model actually use?**
+
+WinTSR is a drop-in, Captum-compatible attribution method for PyTorch time-series
+models. It produces a saliency map over the input window so you can inspect *when*
+and *where* a model found evidence for its prediction.
 
 Explaining time series models is hard for two reasons that attribution methods borrowed
 from vision and NLP do not handle: subsequent time steps are strongly dependent, and
@@ -13,6 +19,16 @@ feature importance varies over time. Existing studies (1) do not consider the te
 dependencies among the feature vectors in the input window, and (2) consider the time
 dimension separately from the feature dimension when calculating importance scores.
 **Windowed Temporal Saliency Rescaling (WinTSR)** addresses both.
+
+![WinTSR attribution heatmap](docs/assets/wintsr_heatmap.png)
+
+## Why WinTSR?
+
+- **Model-agnostic:** explain any callable PyTorch model with the expected input shape.
+- **Time-aware:** preserve relationships between neighbouring observations.
+- **Joint attribution:** identify important time–feature regions, not just global features.
+- **Practical:** support multi-input models, custom baselines, classification, and forecasting.
+- **One interface:** compare WinTSR with 13 established attribution methods.
 
 ## Quickstart
 
@@ -35,6 +51,13 @@ attr = WinTSR(model).attribute(
     threshold=0.5,
 )
 attr.shape   # (16, n_output, 96, 7)
+```
+
+For local development, install the package with its test and documentation tools:
+
+```bash
+pip install -e ".[dev,docs]"
+pytest
 ```
 
 Plot `attr` as a heatmap over `(seq_len, n_features)` to read off what the model used.

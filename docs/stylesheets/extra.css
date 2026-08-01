@@ -1,0 +1,61 @@
+:root {
+  --wintsr-accent: #5b5bd6;
+  --wintsr-cyan: #0ea5a8;
+  --wintsr-border: color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
+}
+
+.md-typeset h1 {
+  margin-bottom: 0.15em;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.md-typeset h1 + h3 {
+  margin-top: 0;
+  color: var(--md-default-fg-color--light);
+  font-weight: 500;
+}
+
+.md-typeset .md-button {
+  border-radius: 0.4rem;
+}
+
+.wintsr-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  margin: 1.5rem 0;
+}
+
+.wintsr-stats > div {
+  padding: 0.85rem 0.65rem;
+  border: 1px solid var(--wintsr-border);
+  border-radius: 0.55rem;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--wintsr-accent) 9%, transparent), color-mix(in srgb, var(--wintsr-cyan) 5%, transparent));
+  text-align: center;
+}
+
+.wintsr-stats strong {
+  display: block;
+  color: var(--wintsr-accent);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.wintsr-stats span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.66rem;
+  line-height: 1.25;
+}
+
+.method-grid .card {
+  border-top: 0.15rem solid var(--wintsr-accent);
+}
+
+@media screen and (max-width: 44.984375em) {
+  .wintsr-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

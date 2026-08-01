@@ -1,23 +1,41 @@
-# Related works
-| Title | Published in | Summary |
-|:---:|:---:|:---|
-[Encoding time-series explanations through self-supervised model behavior consistency](https://proceedings.neurips.cc/paper_files/paper/2023/file/65ea878cb90b440e8b4cd34fe0959914-Paper-Conference.pdf) | NeurIPS 2024 | TIMEX proposed a consistency model for training interpretable surrogates. This preserves the latent space induced by the pre-trained time series model and provides faithful and discrete attribution.  |
-|[Temporal Dependencies in Feature Importance for Time Series Prediction](https://arxiv.org/pdf/2107.14317) | ICLR 2023 | Windowed Feature Importance in Time (WinIT) proposed a sliding window-based approach to calculate delayed feature importance.
-| [CGS-Mask: Making Time Series Predictions Intuitive for All](https://ojs.aaai.org/index.php/AAAI/article/view/29325/30499) | AAAI 2024 | Proposes a cellular genetic strip mask-based saliency approach to consider the time-sensitive nature of time series applications while giving binary importance to features instead of a numerical score. |
-| [Benchmarking deep learning interpretability in time series predictions](https://proceedings.neurips.cc/paper_files/paper/2020/file/47a3893cc405396a5c30d91320572d6d-Paper.pdf) | NeurIPS 2020 | Propose and report multiple saliency evaluation metrics and a two-step temporal saliency rescaling (TSR) approach that first calculates the importance of each time step before calculating the importance of each feature at a time step.
-| [Evaluation of post-hoc interpretability methods in time-series classification](https://www.nature.com/articles/s42256-023-00620-w) | Nature 2023 | Proposed a framework with quantitative metrics to assess the performance of existing post-hoc interpretability methods, particularly in time-series classification. |
-| [Evaluation of interpretability methods for multivariate time series forecasting](https://link.springer.com/article/10.1007/s10489-021-02662-2) | Applied Intelligence 2022 | Benchmarked their interpretation on several regression datasets using multi-horizon fixed input window setting, but didn't consider time dimension separately. |
-| [What went wrong and when? Instance-wise feature importance for time-series black-box models]() | NeurIPS 2020 | Feature Importance for Time-series (FIT) measured each observation's importance to prediction change at the same time step using the KL-divergence base score, however, it only supports classification tasks.|
-| [Interpreting County-Level COVID-19 Infections using Transformer and Deep Learning Time Series Models](https://ieeexplore.ieee.org/iel7/10224635/10224668/10224685.pdf) | ICDH 2023 | Time series interpretation with Attention weights |
-| [Explainable artificial intelligence (xai) on timeseries data: A survey](https://arxiv.org/pdf/2104.00950) | arxiv | Survey paper in time series interpretation
-| [Deep learning for time series forecasting: Tutorial and literature survey](https://dl.acm.org/doi/pdf/10.1145/3533382) | ACM Computing Surveys 2022 | Survey paper |
-| [Interpretation of Time-Series Deep Models: A Survey](https://arxiv.org/pdf/2305.14582) | arxiv | Survey paper |
-[Temporal fusion transformers for interpretable multi-horizon time series forecasting](https://www.sciencedirect.com/science/article/pii/S0169207021000637) | International Journal of Forecasting 2021 | A novel attention-based architecture that combines high-performance multi-horizon forecasting with interpretable insights into temporal dynamics.
-[Optimal local explainer aggregation for interpretable prediction](https://ojs.aaai.org/index.php/AAAI/article/view/21458/21207) | AAAI 2022 | A local explainer aggregation method which selects local explainers using non-convex optimization. In contrast to other heuristic methods, they use an integer optimization framework to combine local explainers into a near-global aggregate explainer. 
-[iTrendRNN: An Interpretable Trend-Aware RNN for Meteorological Spatiotemporal Prediction](https://ojs.aaai.org/index.php/AAAI/article/download/30217/32164) | AAAI 2024 | An interpretable differential framework that accurately predictions meteorological elements by estimating the evolutionary trends using Attention units.
-[Prediction of Alzheimer's progression based on multimodal deep-learning-based fusion and visual explainability of time-series data](https://www.sciencedirect.com/science/article/pii/S1566253522002378) | Information Fusion 2023 | Predicted Alzheimer's progression based on multimodal deep-learning-based fusion while explaining the temporal progression data. 
-[Explainability meets uncertainty quantification: Insights from feature-based model fusion on multimodal time series](https://www.sciencedirect.com/science/article/pii/S1566253523002713) | Information Fusion 2023 | Uses uncertainty quantification techniques to reduce the number of modalities required to explain the Alzheimer's disease (AD) progression detection using 3D CNN model on patient MRI.
-[Self-Interpretable Time Series Prediction with Counterfactual Explanations](https://proceedings.mlr.press/v202/yan23d.html) | ICML 2023 | A variational Bayesian deep learning model equipped with counterfactual inference capability of time series abduction, action, and prediction. 
-[Learning Perturbations to Explain Time Series Predictions](https://proceedings.mlr.press/v202/enguehard23a.html) | ICML 2023 | Explain predictions by learning not only masks, but also associated perturbations. Then empirically show that learning these perturbations significantly improves the quality of these explanations on time series data.
-[Re-calibrating Feature Attributions for Model Interpretation](https://openreview.net/pdf?id=WUWJIV2Yxtp) | ICLR 2023 |A method to first compute an appropriate reference for the path integration scheme. This reference further helps in identifying valid interpolation points on a desired integration path. This scheme can be incorporated into the existing integral-based attribution methods.
-[Explaining Temporal Graph Models through an Explorer-Navigator Framework](https://openreview.net/pdf?id=BR_ZhvcYbGJ) | ICLR 2023 | Given a temporal prediction of a model, T-GNNExplainer finds a subset of historical events that lead to the prediction. It is the first explainer tailored for temporal graph models.
+# Related work
+
+WinTSR builds on a growing body of research in temporal attribution, perturbation,
+evaluation, and intrinsically interpretable forecasting. This page provides a map of
+the field and positions the methods available through the toolkit.
+
+## Temporal attribution methods
+
+| Work | Venue | Contribution |
+| --- | --- | --- |
+| [Benchmarking deep learning interpretability in time series predictions](https://proceedings.neurips.cc/paper_files/paper/2020/file/47a3893cc405396a5c30d91320572d6d-Paper.pdf) | NeurIPS 2020 | Introduces Temporal Saliency Rescaling (TSR) and evaluation metrics for time and feature importance. |
+| [What went wrong and when? Instance-wise feature importance for time-series black-box models](https://proceedings.neurips.cc/paper/2020/hash/08fa43588c2571ade19bc0fa5936e028-Abstract.html) | NeurIPS 2020 | Introduces FIT, which measures prediction changes using KL divergence. |
+| [Temporal Dependencies in Feature Importance for Time Series Prediction](https://arxiv.org/abs/2107.14317) | ICLR 2023 | Introduces WinIT and delayed feature importance over sliding temporal windows. |
+| [Learning Perturbations to Explain Time Series Predictions](https://proceedings.mlr.press/v202/enguehard23a.html) | ICML 2023 | Learns attribution masks and the perturbations applied beneath them. |
+| [CGS-Mask: Making Time Series Predictions Intuitive for All](https://ojs.aaai.org/index.php/AAAI/article/view/29325) | AAAI 2024 | Produces binary, time-sensitive explanations with cellular genetic strip masks. |
+| [Encoding time-series explanations through self-supervised model behavior consistency](https://proceedings.neurips.cc/paper_files/paper/2023/file/65ea878cb90b440e8b4cd34fe0959914-Paper-Conference.pdf) | NeurIPS 2023 | Trains interpretable surrogates while preserving pretrained-model behavior. |
+
+## Evaluation and benchmarking
+
+| Work | Venue | Contribution |
+| --- | --- | --- |
+| [Evaluation of post-hoc interpretability methods in time-series classification](https://www.nature.com/articles/s42256-023-00620-w) | Nature Machine Intelligence 2023 | Proposes quantitative evaluation criteria for classification explanations. |
+| [Evaluation of interpretability methods for multivariate time series forecasting](https://link.springer.com/article/10.1007/s10489-021-02662-2) | Applied Intelligence 2022 | Benchmarks attribution methods for multivariate, multi-horizon forecasting. |
+| [Optimal local explainer aggregation for interpretable prediction](https://ojs.aaai.org/index.php/AAAI/article/view/21458) | AAAI 2022 | Combines local explanations into near-global views through integer optimization. |
+
+## Interpretable temporal models
+
+| Work | Venue | Contribution |
+| --- | --- | --- |
+| [Temporal Fusion Transformers for interpretable multi-horizon time series forecasting](https://www.sciencedirect.com/science/article/pii/S0169207021000637) | International Journal of Forecasting 2021 | Combines high-performance forecasting with variable selection and temporal attention. |
+| [Self-Interpretable Time Series Prediction with Counterfactual Explanations](https://proceedings.mlr.press/v202/yan23d.html) | ICML 2023 | Uses variational inference for temporal abduction, intervention, and prediction. |
+| [iTrendRNN: An Interpretable Trend-Aware RNN for Meteorological Spatiotemporal Prediction](https://ojs.aaai.org/index.php/AAAI/article/view/30217) | AAAI 2024 | Models evolving meteorological trends with interpretable attention units. |
+
+## Surveys
+
+- [Explainable artificial intelligence (XAI) on time-series data: a survey](https://arxiv.org/abs/2104.00950)
+- [Interpretation of Time-Series Deep Models: A Survey](https://arxiv.org/abs/2305.14582)
+- [Deep learning for time series forecasting: tutorial and literature survey](https://dl.acm.org/doi/10.1145/3533382)
+
+For a practical comparison of methods available in this package, including model and
+baseline requirements, see [Interpretation methods](methods.md).

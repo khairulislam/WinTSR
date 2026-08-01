@@ -1,12 +1,26 @@
 # Supported models
 
-WinTSR attributes **any callable** that maps `(batch, seq_len, n_features)` — or a tuple
+WinTSR is architecture-agnostic. It attributes **any callable** that maps
+`(batch, seq_len, n_features)` — or a tuple
 of tensors — to predictions. There is no model registry and nothing to subclass: if the
 forward pass is a differentiable-or-not PyTorch computation, it can be explained.
 
 That said, real forecasting/classification models rarely take a single clean tensor.
 The tables below are the models this package (and its baselines) have actually been
 run against, and exactly how to wire each calling convention into `.attribute(...)`.
+
+<div class="wintsr-stats model-stats" markdown>
+  <div><strong>17</strong><span>single-input models</span></div>
+  <div><strong>12</strong><span>TSlib-style models</span></div>
+  <div><strong>9</strong><span>architecture families</span></div>
+  <div><strong>29</strong><span>tested architectures</span></div>
+</div>
+
+!!! info "Not listed?"
+
+    The tables record tested integrations, not a compatibility limit. If your callable
+    accepts tensors and returns predictions, start with the
+    [integration cookbook](integration.md#your-own-model).
 
 ## Single-input models
 

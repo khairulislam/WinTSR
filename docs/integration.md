@@ -1,8 +1,11 @@
 # Integration cookbook
 
-Every snippet here is executed as part of the test suite or a notebook. Copy, paste, adapt.
+Connect WinTSR to forecasting and classification models with the recipes below. Every
+snippet is exercised by the test suite or a runnable notebook.
 
-The contract is always the same:
+## The attribution contract
+
+Every integration follows the same pattern:
 
 ```python
 attr = WinTSR(model).attribute(inputs, baselines=..., additional_forward_args=...)
@@ -15,7 +18,15 @@ attr = WinTSR(model).attribute(inputs, baselines=..., additional_forward_args=..
 
 Attributions come back shaped `(batch, n_output, seq_len, n_features)`.
 
----
+| Recipe | Use it when |
+| --- | --- |
+| [Your own model](#your-own-model) | The model accepts one time-series tensor. |
+| [TSlib models](#tslib-models-dlinear-itransformer-timesnet-autoformer) | The model accepts encoder and decoder tensors. |
+| [Classification](#classification-models) | Model outputs are class scores. |
+| [Custom outputs](#models-that-return-a-dict-or-a-tuple) | The model returns a dictionary or tuple. |
+| [Choosing a baseline](#choosing-a-baseline) | Zero is not an appropriate reference value. |
+| [Performance tuning](#performance-tuning) | Attribution needs to be faster or sparser. |
+| [Troubleshooting](#troubleshooting) | Shapes, outputs, or scores are unexpected. |
 
 ## Your own model
 
@@ -123,7 +134,7 @@ attr[:, 0]                       # first horizon only
 attr.abs().mean(dim=1)           # averaged over all horizons
 ```
 
-## Speed
+## Performance tuning
 
 `threshold` is the main dial. It is the quantile of time-relevance below which time steps
 are skipped in stage two, so higher means fewer model calls and a sparser map.
@@ -147,8 +158,7 @@ WinTSR(model).attribute(inputs, baselines=zeros, sliding_window_shapes=(6, 1))
 
 ## Comparing against other methods
 
-WinTSR is Captum-compatible, so the baselines are one-liners. The other methods from the
-paper ship in the package too.
+WinTSR follows Captum's attribution interface, so comparisons are concise:
 
 ```python
 from captum.attr import IntegratedGradients
@@ -160,6 +170,9 @@ IntegratedGradients(model).attribute(inputs, baselines=zeros)
 ```
 
 ## Troubleshooting
+
+Start with these common failure modes. If the model has an unusual return type, see
+[Models that return a dict or a tuple](#models-that-return-a-dict-or-a-tuple).
 
 | Symptom | Cause |
 | --- | --- |

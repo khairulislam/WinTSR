@@ -1,11 +1,11 @@
 # Interpretation methods
 
-`wintsr` gives you 14 local attribution methods for time series models, all called
-through the same `.attribute(...)` interface. Four — WinTSR, TSR, WinIT, and GateMask —
-are implemented natively in this package because they needed custom, time-series-aware
-code. The other ten call [Captum](https://captum.ai/docs/introduction) or
-[tint](https://josephenguehard.github.io/time_interpret/build/html/index.html) directly;
-there's nothing to wrap, so use them exactly as documented upstream.
+Choose an attribution method based on the model interface, explanation you need, and
+available compute. The toolkit covers 14 local attribution methods for time-series
+models across perturbation, gradient, distributional, learned-mask, and surrogate
+approaches. They follow the familiar `.attribute(...)` pattern from
+[Captum](https://captum.ai/docs/introduction) and
+[Time Interpret](https://josephenguehard.github.io/time_interpret/build/html/index.html).
 
 ![WinTSR attribution heatmap recovering a planted ground-truth signal at feature 0, steps 20-25, on a synthetic AR(1) series](assets/wintsr_heatmap.png)
 
@@ -14,7 +14,9 @@ noise. WinTSR's saliency map (right two panels) lights up exactly where the grou
 truth (left) says it should. Reproduce this with the
 [quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb).*
 
-Following Captum's own
+## At a glance
+
+Following Captum's
 [algorithm comparison matrix](https://captum.ai/docs/algorithms_comparison_matrix), here
 is what each method needs from your model and how it's computed:
 
@@ -110,7 +112,7 @@ perturbation applied under the mask.
 **Lime** — Fits a local, interpretable surrogate model (typically linear) around the
 input to approximate the black-box model's behaviour in that neighbourhood.
 
-## Which one should I use?
+## Choosing a method
 
 - **Default:** WinTSR. It's the method this package exists for, and the paper's results
   show it best recovers ground-truth relevance in both time and feature dimensions.
