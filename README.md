@@ -45,6 +45,9 @@ Plot `attr` as a heatmap over `(seq_len, n_features)` to read off what the model
 | --- | --- |
 | **[Quickstart notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)** | 60 seconds, no dataset download. Plants a known signal, trains a small GRU, checks WinTSR recovers it. |
 | **[TSlib models notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb)** | Explaining DLinear, iTransformer, TimesNet and friends. No wrapper class needed. |
+| **[Classification notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/classification.ipynb)** | `n_output` becomes the class count; a padding mask goes through as context, not as an attributed input. |
+| **[Baselines notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/baselines.ipynb)** | Why the baseline matters, `get_baseline`'s four modes compared by attribution quality, and how to use a custom one. |
+| **[Custom outputs notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/custom_outputs.ipynb)** | Wrapping models that return a dict or tuple (TimeLLM-style) with a one-line lambda. |
 | **[Integration cookbook](https://khairulislam.github.io/WinTSR/integration/)** | Copy-paste recipes: dict/tuple outputs, classification, baselines, single horizons, speed, troubleshooting. |
 | **[Interpretation methods](https://khairulislam.github.io/WinTSR/methods/)** | What WinTSR, TSR, WinIT and GateMask each do differently, and when to reach for which one. |
 | **[API reference](https://khairulislam.github.io/WinTSR/reference/wintsr/)** | Every argument, generated from the docstrings, including `legacy_normalize=True` to reproduce the published numbers. |

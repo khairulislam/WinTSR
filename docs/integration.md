@@ -76,6 +76,8 @@ attr = WinTSR(model).attribute(
 # (batch, n_classes, seq_len, n_features)
 ```
 
+Full walkthrough: [classification notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/classification.ipynb).
+
 ## Models that return a dict or a tuple
 
 Attribution needs a tensor. Wrap the model in a callable that picks the right field —
@@ -88,6 +90,8 @@ attr = WinTSR(lambda x: model(x)["outputs_time"]).attribute(inputs, baselines=..
 # model returns (predictions, attention_weights)
 attr = WinTSR(lambda x: model(x)[0]).attribute(inputs, baselines=...)
 ```
+
+Full walkthrough: [custom outputs notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/custom_outputs.ipynb).
 
 ## Choosing a baseline
 
@@ -105,6 +109,8 @@ get_baseline(inputs, "mean")     # each feature's mean, broadcast
 
 Use `"normal"` or `"mean"` when zero is a meaningful value in your data and would itself
 look like a signal.
+
+Full walkthrough: [baselines notebook](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/baselines.ipynb).
 
 ## Explaining one forecast horizon
 

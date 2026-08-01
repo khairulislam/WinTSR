@@ -142,9 +142,11 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 - **[API reference](reference/wintsr.md)** — every argument, generated from the
   docstrings.
 - Runnable notebooks:
-  [quickstart](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb)
-  and
-  [TSlib models](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb).
+  [quickstart](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/quickstart.ipynb),
+  [TSlib models](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/tslib_models.ipynb),
+  [classification](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/classification.ipynb),
+  [baselines](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/baselines.ipynb), and
+  [custom outputs](https://colab.research.google.com/github/khairulislam/WinTSR/blob/main/notebooks/custom_outputs.ipynb).
 
 ## Citation
 
