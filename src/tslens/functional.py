@@ -1,4 +1,4 @@
-"""Small tensor helpers used by the attribution methods.
+"""Small tensor helpers used by the interpretation methods.
 
 These are vendored here (rather than imported from ``utils.tools``) so that the
 ``tslens`` package is installable and usable without the rest of the research

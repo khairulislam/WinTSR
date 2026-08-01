@@ -1,4 +1,4 @@
-"""tslens: attribution methods for time series deep learning models.
+"""tslens: interpretation methods for time series deep learning models.
 
 A drop-in, Captum-compatible interpretability toolkit for any PyTorch model
 that consumes ``(batch, seq_len, n_features)`` tensors. Includes WinTSR and

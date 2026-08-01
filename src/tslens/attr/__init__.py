@@ -1,4 +1,4 @@
-"""Attribution methods for time series models.
+"""Interpretation methods for time series models.
 
 :class:`WinTSR` is the method introduced in the paper it's named after.
 :class:`TSR`, :class:`WinIT` and :class:`GateMask` are the baselines used in

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tslens"
 version = "0.1.0"
-description = "A consistent PyTorch interface to attribution methods for time series deep learning models, including WinTSR"
+description = "A PyTorch framework for interpreting time series deep learning models"
 readme = "docs/pypi_readme.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }

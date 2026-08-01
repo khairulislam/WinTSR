@@ -1,6 +1,6 @@
 # tslens
 
-### A consistent PyTorch interface to time-series attribution methods
+### A PyTorch framework for interpreting time-series deep learning models
 
 [![arXiv](https://img.shields.io/badge/arXiv-2412.04532-b31b1b.svg)](https://arxiv.org/abs/2412.04532)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb)
@@ -13,7 +13,7 @@ tslens is a drop-in, Captum-compatible interpretability toolkit for PyTorch
 time-series models. Every method produces a saliency map over the input window so you
 can inspect *when* and *where* a model found evidence for its prediction.
 
-Explaining time series models is hard for two reasons that attribution methods borrowed
+Explaining time series models is hard for two reasons that interpretation methods borrowed
 from vision and NLP do not handle: subsequent time steps are strongly dependent, and
 feature importance varies over time. Existing studies (1) do not consider the temporal
 dependencies among the feature vectors in the input window, and (2) consider the time
@@ -29,7 +29,7 @@ method, addresses both.
 - **Time-aware:** preserve relationships between neighbouring observations, via WinTSR.
 - **Joint attribution:** identify important time–feature regions, not just global features.
 - **Practical:** support multi-input models, custom baselines, classification, and forecasting.
-- **One interface:** compare established attribution methods from Captum, Time Interpret,
+- **One interface:** compare established interpretation methods from Captum, Time Interpret,
   and this package's own native implementations side by side.
 
 ## Quickstart
@@ -90,7 +90,7 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 
 ## Interpretation methods
 
-tslens gives you a broad set of attribution methods through one interface, and works
+tslens gives you a broad set of interpretation methods through one interface, and works
 with any PyTorch time series model. WinTSR, TSR, WinIT, and GateMask are implemented
 natively here; the rest call [Captum](https://captum.ai/docs/introduction) and
 [tint](https://josephenguehard.github.io/time_interpret/build/html/index.html) directly.

@@ -59,7 +59,7 @@ def _clearer_perturbation_error(perturbations_per_eval: int):
 class WinTSR(Occlusion):
     """Windowed Temporal Saliency Rescaling.
 
-    A two-stage attribution method for time series models. Stage one computes a
+    A two-stage interpretation method for time series models. Stage one computes a
     *time-relevance score* per time step by occluding whole time steps. Stage
     two computes a *feature-relevance score* only on the time steps that clear a
     relevance threshold, using a sliding window that respects temporal

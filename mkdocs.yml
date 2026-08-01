@@ -1,5 +1,5 @@
 site_name: tslens
-site_description: A consistent PyTorch interface to 14 time-series attribution methods, including WinTSR.
+site_description: A consistent PyTorch interface for time-series attribution methods.
 site_url: https://khairulislam.github.io/tslens/
 repo_url: https://github.com/khairulislam/tslens
 repo_name: khairulislam/tslens

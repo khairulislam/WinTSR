@@ -1,7 +1,7 @@
 # Interpretation methods
 
-Choose an attribution method based on the model interface, explanation you need, and
-available compute. The toolkit covers local attribution methods for time-series
+Choose an interpretation method based on the model interface, explanation you need, and
+available compute. The toolkit covers local interpretation methods for time-series
 models across perturbation, gradient, distributional, learned-mask, and surrogate
 approaches. They follow the familiar `.attribute(...)` pattern from
 [Captum](https://captum.ai/docs/introduction) and
