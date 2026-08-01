@@ -1,0 +1,31 @@
+:root {
+  --tslens-accent: #5b5bd6;
+  --tslens-cyan: #0ea5a8;
+  --tslens-border: color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
+}
+
+.md-typeset h1 {
+  margin-bottom: 0.15em;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.md-typeset h1 + h3 {
+  margin-top: 0;
+  color: var(--md-default-fg-color--light);
+  font-weight: 500;
+}
+
+.md-typeset .md-button {
+  border-radius: 0.4rem;
+}
+
+.tslens-subline {
+  margin: 0.75rem 0 1.5rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.85rem;
+}
+
+.method-grid .card {
+  border-top: 0.15rem solid var(--tslens-accent);
+}
