@@ -2,24 +2,16 @@
 
 ### A consistent PyTorch interface to time-series attribution methods
 
-**Discover which time steps and features drove your model's prediction.**
-
 tslens is a Captum-compatible interpretability toolkit for PyTorch time-series
-models. It bundles WinTSR — a local attribution method that accounts for
+models. It tells you which time steps and features drove a prediction. The
+package bundles WinTSR — a local attribution method that accounts for
 dependencies between neighbouring time steps and scores time and feature
 importance jointly — alongside other established attribution methods behind
 one consistent interface.
 
 [Get started](#quickstart){ .md-button .md-button--primary }
-[Open in Colab](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb){ .md-button }
-[Read the paper](https://arxiv.org/abs/2412.04532){ .md-button }
-
-<div class="tslens-stats" markdown>
-  <div><strong>Captum + tint</strong><span>method coverage</span></div>
-  <div><strong>TSlib</strong><span>architectures tested</span></div>
-  <div><strong>Runnable</strong><span>notebooks</span></div>
-  <div><strong>1</strong><span>consistent interface</span></div>
-</div>
+[Open in Colab](https://colab.research.google.com/github/khairulislam/tslens/blob/main/notebooks/quickstart.ipynb) ·
+[Read the paper](https://arxiv.org/abs/2412.04532)
 
 ![WinTSR attribution heatmap recovering a planted signal at feature 0, steps 20–25](assets/wintsr_heatmap.png)
 
@@ -48,43 +40,34 @@ one consistent interface.
 
 </div>
 
-## A broad interpretation toolkit
+## Interpretation methods
 
-Explore attribution methods spanning perturbation, gradient, learned-mask, and
-surrogate approaches through a consistent PyTorch workflow. Choose an approach
-based on your model, explanation goal, and available compute.
+tslens covers perturbation, gradient, learned-mask, and surrogate approaches
+through the same PyTorch workflow, so you can pick a method based on your
+model, explanation goal, and available compute.
 
 <div class="grid cards method-grid" markdown>
 
--   **Perturbation and occlusion**
+-   **[Perturbation and occlusion](methods.md#occlusion-based)**
 
     WinTSR · WinIT · Occlusion · Feature Ablation · Feature Permutation ·
     Augmented Occlusion · FIT
 
-    [Explore perturbation methods →](methods.md#occlusion-based)
-
--   **Gradient-based**
+-   **[Gradient-based](methods.md#gradient-based)**
 
     TSR · Integrated Gradients · Gradient SHAP
 
-    [Explore gradient methods →](methods.md#gradient-based)
-
--   **Learned masks**
+-   **[Learned masks](methods.md#learned-masks)**
 
     GateMask · Dyna Mask · Extremal Mask
 
-    [Explore learned masks →](methods.md#learned-masks)
-
--   **Local surrogate**
+-   **[Local surrogate](methods.md#surrogate)**
 
     Lime
 
-    [Explore surrogate methods →](methods.md#surrogate)
-
 </div>
 
-[Compare all methods](methods.md){ .md-button .md-button--primary }
-[Browse tested models](models.md){ .md-button }
+See the [full method comparison](methods.md) or [tested models](models.md) for details.
 
 ## Quickstart
 
@@ -149,27 +132,12 @@ attr_enc, attr_mark = WinTSR(model).attribute(
 The [integration cookbook](integration.md) covers TSlib, classification, custom model
 outputs, single forecast horizons, baseline selection, and performance tuning.
 
-## Explore the documentation
+## Further reading
 
-<div class="grid cards" markdown>
-
--   **[Integration cookbook](integration.md)**
-
-    Copy-ready recipes for common model signatures and attribution workflows.
-
--   **[Interpretation methods](methods.md)**
-
-    Compare requirements, trade-offs, and recommended use cases for every method.
-
--   **[Supported models](models.md)**
-
-    Browse the architectures and calling conventions tested with WinTSR.
-
--   **[API reference](reference/wintsr.md)**
-
-    Inspect signatures and parameters generated directly from the package docstrings.
-
-</div>
+- [Integration cookbook](integration.md) — recipes for common model signatures and attribution workflows.
+- [Interpretation methods](methods.md) — requirements, trade-offs, and recommended use cases for every method.
+- [Supported models](models.md) — architectures and calling conventions tested with WinTSR.
+- [API reference](reference/wintsr.md) — signatures and parameters generated from the package docstrings.
 
 ## Reproduce the research
 
